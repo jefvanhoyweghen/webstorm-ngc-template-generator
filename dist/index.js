@@ -72,8 +72,10 @@ glob_1.default('**/*.component.ts', {
             });
         }
         catch (e) {
-            console.log(e);
             console.log('\x1b[33m%s\x1b[0m', 'Could not open snippet file. Creating new one');
+            if (!fs_1.default.existsSync(wsInstall + '/templates')) {
+                fs_1.default.mkdirSync(wsInstall + '/templates');
+            }
         }
         files.forEach(function (file) {
             var fileData = fs_1.default.readFileSync(path + '/' + file, 'utf8');
@@ -106,5 +108,6 @@ glob_1.default('**/*.component.ts', {
             if (err)
                 throw err;
         });
+        console.log('\x1b[32m%s\x1b[0m', 'Successfully generated snippet.');
     });
 });
